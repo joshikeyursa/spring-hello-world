@@ -5,16 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/hello-world")
 @RestController
-public class HelloWorldController {
+public class RootController {
 
-    private static final Logger logger = LoggerFactory.getLogger(HelloWorldController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RootController.class);
 
-    @RequestMapping("/hello")
-    public String sayHello(){
-        logger.info("Hello called");
+    @RequestMapping("/")
+    public String groot(){
+        logger.info("Root called");
         return "SUCCESS";
     }
-
 }

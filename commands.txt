@@ -1,0 +1,4 @@
+kubectl create -f k8-config.yaml
+kubectl create -f k8-secret.yaml
+kubectl create -f k8-deployment.yaml
+minikube service spring-hello-world-service
