@@ -1,0 +1,4 @@
+app:
+  env:
+    baseurl: /v1
+    name: Development

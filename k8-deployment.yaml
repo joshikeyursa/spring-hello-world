@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-hello-world
+  name: spring-hello-world-deployment
   labels:
-    app: spring-hello-world
+    app: spring-hello-world-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-hello-world
+      app: spring-hello-world-pod
   template:
     metadata:
       labels:
-        app: spring-hello-world
+        app: spring-hello-world-pod
     spec:
       containers:
-        - name: spring-hello-world
+        - name: spring-hello-world-container
           image: joshikeyur/spring-hello-world
           ports:
             - containerPort: 8080
@@ -32,7 +32,7 @@ spec:
                 secretKeyRef:
                   name: spring-hello-world-secret
                   key: app_password
-      restartPolicy: Always
+      #restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
@@ -40,10 +40,10 @@ metadata:
   name: spring-hello-world-service
 spec:
   selector:
-    app: spring-hello-world
+    app: spring-hello-world-pod
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8081
       targetPort: 8080
       nodePort: 30002

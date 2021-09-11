@@ -1,0 +1,4 @@
+app:
+  env:
+    baseurl: /v2
+    name: Staging
