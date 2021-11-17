@@ -27,7 +27,10 @@ public class EnvController {
         List<KeyValueBean> retList = new ArrayList<>();
         if(System.getenv()!=null){
             Map<String,String> envMap = System.getenv();
-            envMap.keySet().stream().filter(x->x.startsWith("APP_")||x.toUpperCase(Locale.ROOT).startsWith("SPRING")).forEach(x->retList.add(new KeyValueBean(x,envMap.get(x))));
+            envMap.keySet().stream()
+                    .filter(x->x.startsWith("APP_")||x.toUpperCase(Locale.ROOT)
+                            .startsWith("SPRING"))
+                    .forEach(x->retList.add(new KeyValueBean(x,envMap.get(x))));
         }
         return retList;
     }
