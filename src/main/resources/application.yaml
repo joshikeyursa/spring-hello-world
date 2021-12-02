@@ -1,4 +1,10 @@
 app:
   env:
+    baseurl: /v0
     name: Local
+
+crypto:
+  price:
+    url:
+      coinspot: https://www.coinspot.com.au/pubapi/latest
 
