@@ -1,3 +1,6 @@
+server:
+  port: 9090
+
 app:
   env:
     baseurl: /v0

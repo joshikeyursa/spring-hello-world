@@ -1,3 +1,4 @@
+docker build -t joshikeyur/spring-hello-world .
 kubectl create -f k8-config.yaml
 kubectl create -f k8-secret.yaml
 kubectl create -f k8-deployment.yaml

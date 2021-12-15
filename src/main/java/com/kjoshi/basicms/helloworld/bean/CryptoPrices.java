@@ -1,7 +1,5 @@
 package com.kjoshi.basicms.helloworld.bean;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Map;
 
 public class CryptoPrices {
