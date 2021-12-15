@@ -6,6 +6,7 @@ import com.kjoshi.basicms.helloworld.service.CryptoService;
 import com.kjoshi.basicms.helloworld.transformers.CryptoResponseTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -27,15 +28,13 @@ public class CoinSpotCryptoService implements CryptoService {
     @Override
     public Mono<List<CryptoPrice>> fetchListOfCoins() {
         try{
-            URI uri = new URI(cryptoURL);
             WebClient client = WebClient.create(cryptoURL);
-            //Mono<String> cryptoPricesMono = client.get().retrieve().bodyToMono(String.class);
             List<CryptoPrice> priceList = new ArrayList<>();
             Mono<List<CryptoPrice>> cryptoPricesMono = client.get().retrieve().bodyToMono(CryptoPrices.class).map(cryptoPrices -> {
-               cryptoPrices.getPrices().forEach((coinSymbol,coinPrice)-> priceList.add(transformer.transform(coinSymbol,coinPrice)));
+               cryptoPrices.getPrices().
+                       forEach((coinSymbol,coinPrice)-> priceList.add(transformer.transform(coinSymbol,coinPrice)));
                return priceList;
             });
-
             cryptoPricesMono.subscribe(System.out::println);
             return cryptoPricesMono;
         }catch (Exception e){
