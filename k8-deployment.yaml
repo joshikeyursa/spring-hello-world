@@ -41,9 +41,10 @@ metadata:
 spec:
   selector:
     app: spring-hello-world-pod
-  type: LoadBalancer
+  #type: LoadBalancer
+  type: ClusterIP #Since we started using Ingress no need to expose this as a LoadBalancer s
   ports:
     - protocol: TCP
       port: 8081
       targetPort: 9090
-      nodePort: 30002
+      #nodePort: 30002
