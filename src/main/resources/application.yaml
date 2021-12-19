@@ -3,7 +3,7 @@ server:
 
 app:
   env:
-    baseurl: /v0
+    baseurl: /spring-hello
     name: Local
 
 crypto:

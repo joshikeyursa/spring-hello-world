@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/env")
+@RequestMapping("${app.env.baseurl}")
 public class EnvController {
 
     private static final Logger logger = LoggerFactory.getLogger(EnvController.class);
@@ -21,7 +21,7 @@ public class EnvController {
     @Value("${app.env.name:}")
     private String envName;
 
-    @RequestMapping("/")
+    @RequestMapping("/env")
     public List<KeyValueBean> getAllEnvVariables(){
         logger.info("Env {} Called",envName);
         List<KeyValueBean> retList = new ArrayList<>();
@@ -33,11 +33,5 @@ public class EnvController {
                     .forEach(x->retList.add(new KeyValueBean(x,envMap.get(x))));
         }
         return retList;
-    }
-
-    @RequestMapping("/shutdown")
-    public void shutdownServer(){
-        logger.info("Initiated Shutdown.");
-        System.exit(0);
     }
 }

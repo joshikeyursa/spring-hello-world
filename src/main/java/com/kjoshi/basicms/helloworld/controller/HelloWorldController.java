@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("${app.env.baseurl}")
 @RestController
+@RequestMapping("${app.env.baseurl}")
 public class HelloWorldController {
 
     @Value("${app.env.name}")

@@ -15,7 +15,7 @@ public class ScheduledPriceLoader {
         this.cryptoService = cryptoService;
     }
 
-    @Scheduled(cron = "*/120 * * * * *")
+    @Scheduled(cron = "*/300 * * * * *")
     public void loadCryptoPrices(){
         cryptoService.fetchListOfCoins();
     }

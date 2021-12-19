@@ -1,5 +1,11 @@
 docker build -t joshikeyur/spring-hello-world .
+docker push joshikeyur/spring-hello-world
 kubectl create -f k8-config.yaml
+kubectl get configmaps
 kubectl create -f k8-secret.yaml
+kubectl get secrets
 kubectl create -f k8-deployment.yaml
+kubectl get all|grep spring-hello-world
 minikube service spring-hello-world-service
+
+kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 9091:80

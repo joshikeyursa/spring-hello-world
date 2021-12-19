@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spring-hello-world-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    #nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: nginx
+  defaultBackend:
+    service:
+      name: spring-hello-world-service
+      port:
+        number: 8081
+  rules:
+    - host: demo.localdev.me
+      http:
+        paths:
+          - path: /spring-hello/.*
+            pathType: Prefix
+            backend:
+              service:
+                name: spring-hello-world-service
+                port:
+                  number: 8081
