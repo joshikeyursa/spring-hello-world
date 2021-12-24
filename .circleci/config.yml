@@ -21,21 +21,13 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
-      # Ensure Tests are successful
-      - run:
-          name: Test
-          command: mvn -B -DskipTests clean package
-      - run:
-          name: Build
-          command: mvn clean test
-      - run:
-          name: Build Docker image
-          command: ls -lart
       - setup_remote_docker:
           version: 19.03.13
       - run:
           name: Dockerize it
-          command: docker build -t joshikeyur/spring-hello-world .
+          command: |
+            mvn clean test package
+            docker build -t joshikeyur/spring-hello-world .
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
