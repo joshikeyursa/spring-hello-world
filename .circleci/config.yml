@@ -31,7 +31,7 @@ jobs:
             mvn clean test package
             docker build -t joshikeyur/spring-hello-world:$CIRCLE_BUILD_NUM .
             aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-            docker tag kjoshi/tasktracker-app:$CIRCLE_BUILD_NUM $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/kjoshi/spring-hello-world:$CIRCLE_BUILD_NUM
+            docker tag joshikeyur/spring-hello-world:$CIRCLE_BUILD_NUM $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/kjoshi/spring-hello-world:$CIRCLE_BUILD_NUM
             docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/kjoshi/spring-hello-world:$CIRCLE_BUILD_NUM
 
 # Invoke jobs via workflows
