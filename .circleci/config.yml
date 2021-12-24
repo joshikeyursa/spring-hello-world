@@ -2,6 +2,9 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+orbs:
+  docker: circleci/docker@2.0.1
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -26,12 +29,12 @@ jobs:
       - run:
           name: Test
           command: mvn test
-  dockerize:
-    docker:
-      - image: cimg/base
-    steps:
-      - checkout
-      - run:
+    dockerize:
+      docker:
+      - image: cimg/base:2021.12
+      steps:
+        - checkout
+        - run:
           name: Build Docker image
           command: ls -lart
 
@@ -42,6 +45,8 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
-      - dockerize:
+      - docker/publish:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+          update-description: true
           requires:
             - build-and-test
