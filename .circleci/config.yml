@@ -29,12 +29,12 @@ jobs:
       - run:
           name: Test
           command: mvn test
-    dockerize:
-      docker:
+  dockerize:
+    docker:
       - image: cimg/base:2021.12
-      steps:
-        - checkout
-        - run:
+    steps:
+      - checkout
+      - run:
           name: Build Docker image
           command: ls -lart
 
