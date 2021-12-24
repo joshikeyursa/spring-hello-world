@@ -24,18 +24,16 @@ jobs:
       # Ensure Tests are successful
       - run:
           name: Test
-          command: mvn clean test package
-  rebuild-and-dockerize:
-    executor: docker/docker
-    steps:
-      - checkout
-      # Use mvn clean and package as the standard maven build phase
+          command: mvn -B -DskipTests clean package
       - run:
           name: Build
-          command: mvn -B -DskipTests clean package
+          command: mvn clean test
       - run:
           name: Build Docker image
           command: ls -lart
+      - run:
+          name: Dockerize it
+          command:
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -44,11 +42,3 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
-      - docker/publish:
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-          update-description: true
-          requires:
-            - build-and-test
-      - rebuild-and-dockerize:
-          requires:
-            - build-and-test
