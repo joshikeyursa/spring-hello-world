@@ -31,6 +31,7 @@ public class EnvController {
                     .filter(x->x.startsWith("APP_")||x.toUpperCase(Locale.ROOT)
                             .startsWith("SPRING"))
                     .forEach(x->retList.add(new KeyValueBean(x,envMap.get(x))));
+            retList.add(new KeyValueBean("message",envName));
         }
         return retList;
     }

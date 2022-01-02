@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: spring-hello-world-env
 data:
-  env_name: dev
+  APP_ENV: dev
+  SPRING_PROFILES_ACTIVE: prod

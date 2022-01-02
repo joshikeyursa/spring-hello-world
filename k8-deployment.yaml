@@ -19,19 +19,14 @@ spec:
           image: joshikeyur/spring-hello-world
           ports:
             - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: spring-hello-world-secret
+            - configMapRef:
+                name: spring-hello-world-env
           env:
-            - name: SPRING_PROFILES_ACTIVE
+            - name: SPRING_PROFILES_ACTIVE_REMOVE
               value: dev
-            - name: APP_ENV
-              valueFrom:
-                configMapKeyRef:
-                  name: spring-hello-world-env
-                  key: env_name
-            - name: APP_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: spring-hello-world-secret
-                  key: app_password
       #restartPolicy: Always
 ---
 apiVersion: v1
