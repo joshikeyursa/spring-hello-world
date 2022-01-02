@@ -8,4 +8,6 @@ kubectl create -f k8-deployment.yaml
 kubectl get all|grep spring-hello-world
 minikube service spring-hello-world-service
 
+minikube addons enable ingress
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 9091:80
+curl http://demo.localdev.me:9091/spring-hello/env
