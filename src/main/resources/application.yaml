@@ -11,3 +11,18 @@ crypto:
     url:
       coinspot: https://www.coinspot.com.au/pubapi/latest
 
+resilience4j.ratelimiter:
+  configs:
+    default:
+      registerHealthIndicator: true
+      limitForPeriod: 2
+      limitRefreshPeriod: 60s
+      timeoutDuration: 0
+      eventConsumerBufferSize: 5
+  instances:
+    serviceOne:
+      limitForPeriod: 3
+      limitRefreshPeriod: 120s
+      timeoutDuration: 0
+      registerHealthIndicator: true
+      eventConsumerBufferSize: 100
