@@ -1,11 +1,11 @@
 server:
   port: 9090
+  url: http://localhost:9090
 
 app:
   env:
     baseurl: /spring-hello
     name: Local
-
 crypto:
   price:
     url:

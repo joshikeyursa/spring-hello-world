@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -33,11 +34,14 @@ public class CoinSpotCryptoService implements CryptoService {
         try{
             WebClient client = WebClient.create(cryptoURL);
             List<CryptoPrice> priceList = new ArrayList<>();
-            Mono<List<CryptoPrice>> cryptoPricesMono = client.get().retrieve().bodyToMono(CryptoPrices.class).map(cryptoPrices -> {
-               cryptoPrices.getPrices().
-                       forEach((coinSymbol,coinPrice)-> priceList.add(transformer.transform(coinSymbol,coinPrice)));
-               return priceList;
-            });
+            Mono<List<CryptoPrice>> cryptoPricesMono = client.get()
+                    .retrieve()
+                    .onStatus(HttpStatus::is4xxClientError,(clientResponse -> Mono.error(new RuntimeException())))
+                    .onStatus(HttpStatus::is5xxServerError,((clientResponse)-> Mono.error(new RuntimeException())))
+                    .bodyToMono(CryptoPrices.class).map(cryptoPrices -> {
+                        cryptoPrices.getPrices().forEach((coinSymbol,coinPrice)-> priceList.add(transformer.transform(coinSymbol,coinPrice)));
+                        return priceList;
+                    });
             cryptoPricesMono.log();
             return cryptoPricesMono;
         }catch (Exception e){
