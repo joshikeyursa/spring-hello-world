@@ -36,8 +36,8 @@ public class CoinSpotCryptoService implements CryptoService {
             List<CryptoPrice> priceList = new ArrayList<>();
             Mono<List<CryptoPrice>> cryptoPricesMono = client.get()
                     .retrieve()
-                    .onStatus(HttpStatus::is4xxClientError,(clientResponse -> Mono.error(new RuntimeException())))
-                    .onStatus(HttpStatus::is5xxServerError,((clientResponse)-> Mono.error(new RuntimeException())))
+                    //.onStatus(HttpStatus::is4xxClientError,(clientResponse -> Mono.error(new RuntimeException())))
+                    //.onStatus(HttpStatus::is5xxServerError,((clientResponse)-> Mono.error(new RuntimeException())))
                     .bodyToMono(CryptoPrices.class).map(cryptoPrices -> {
                         cryptoPrices.getPrices().forEach((coinSymbol,coinPrice)-> priceList.add(transformer.transform(coinSymbol,coinPrice)));
                         return priceList;
